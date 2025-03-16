@@ -1,0 +1,280 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Furkan
+      changes:
+        - createTable:
+            tableName: kullanici
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: kullanici_adi
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: sifre
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: eposta
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: olusturma_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guncelleme_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 2
+      author: Furkan
+      changes:
+        - createTable:
+            tableName: rol
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: rol_adi
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: olusturma_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guncelleme_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 3
+      author: Furkan
+      changes:
+        - createTable:
+            tableName: kullanici_rol
+            columns:
+              - column:
+                  name: kullanici_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_kullanici_rol_kullanici
+                    references: kullanici(id)
+              - column:
+                  name: rol_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_kullanici_rol_rol
+                    references: rol(id)
+        - addPrimaryKey:
+            tableName: kullanici_rol
+            columnNames: kullanici_id, rol_id
+  - changeSet:
+      id: 4
+      author: Furkan
+      changes:
+        - createTable:
+            tableName: kisi_bilgileri
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: tc_kimlik_no
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+              - column:
+                  name: ad
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: soyad
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dogum_tarihi
+                  type: DATE
+              - column:
+                  name: dogum_yeri
+                  type: VARCHAR(255)
+              - column:
+                  name: anne_adi
+                  type: VARCHAR(255)
+              - column:
+                  name: baba_adi
+                  type: VARCHAR(255)
+              - column:
+                  name: cinsiyet
+                  type: VARCHAR(255)
+              - column:
+                  name: uyruk
+                  type: VARCHAR(255)
+              - column:
+                  name: kullanici_id
+                  type: BIGINT
+                  constraints:
+                    unique: true
+                    foreignKeyName: fk_kisi_bilgileri_kullanici
+                    references: kullanici(id)
+              - column:
+                  name: olusturma_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guncelleme_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 5
+      author: Furkan
+      changes:
+        - createTable:
+            tableName: iletisim_bilgileri
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: telefon
+                  type: VARCHAR(255)
+              - column:
+                  name: eposta
+                  type: VARCHAR(255)
+              - column:
+                  name: kullanici_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_iletisim_bilgileri_kullanici
+                    references: kullanici(id)
+              - column:
+                  name: olusturma_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guncelleme_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 6
+      author: Furkan
+      changes:
+        - createTable:
+            tableName: adres_bilgileri
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: adres
+                  type: VARCHAR(255)
+              - column:
+                  name: sehir
+                  type: VARCHAR(255)
+              - column:
+                  name: ilce
+                  type: VARCHAR(255)
+              - column:
+                  name: kullanici_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_adres_bilgileri_kullanici
+                    references: kullanici(id)
+              - column:
+                  name: olusturma_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guncelleme_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 7
+      author: Furkan
+      changes:
+        - createTable:
+            tableName: yazilim_deneyimleri
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: sirket_adi
+                  type: VARCHAR(255)
+              - column:
+                  name: pozisyon
+                  type: VARCHAR(255)
+              - column:
+                  name: baslangic_tarihi
+                  type: VARCHAR(255)
+              - column:
+                  name: bitis_tarihi
+                  type: VARCHAR(255)
+              - column:
+                  name: kullanici_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_yazilim_deneyimleri_kullanici
+                    references: kullanici(id)
+              - column:
+                  name: olusturma_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guncelleme_tarihi
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false

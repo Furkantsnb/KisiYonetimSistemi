@@ -1,15 +1,14 @@
 package entity;
 
-
-
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "kisi_bilgileri")
 @Data
 public class KisiBilgileri extends BaseEntity {
-
 
     @Column(name = "tc_kimlik_no", unique = true)
     private String tcKimlikNo;
@@ -19,6 +18,24 @@ public class KisiBilgileri extends BaseEntity {
 
     @Column(name = "soyad", nullable = false)
     private String soyad;
+
+    @Column(name = "dogum_tarihi")
+    private LocalDate dogumTarihi;
+
+    @Column(name = "dogum_yeri")
+    private String dogumYeri;
+
+    @Column(name = "anne_adi")
+    private String anneAdi;
+
+    @Column(name = "baba_adi")
+    private String babaAdi;
+
+    @Column(name = "cinsiyet")
+    private String cinsiyet;
+
+    @Column(name = "uyruk")
+    private String uyruk;
 
     // Diğer TC kimlik bilgileri...
 

@@ -16,6 +16,9 @@ public class AdresBilgileri extends BaseEntity {
     @Column(name = "sehir")
     private String sehir;
 
+    @Column(name = "ilce")
+    private String ilce;
+
     // Diğer adres bilgileri...
 
     @ManyToOne
