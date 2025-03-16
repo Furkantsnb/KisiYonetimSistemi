@@ -1,0 +1,1 @@
+Class.forName("org.postgresql.Driver");
