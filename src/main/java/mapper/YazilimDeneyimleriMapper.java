@@ -5,11 +5,13 @@ import dto.YazilimDeneyimleriDto;
 import dto.YazilimDeneyimleriUpdateDto;
 import entity.YazilimDeneyimleri;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface YazilimDeneyimleriMapper {
 
+    @Mapping(target = "kullaniciId", source = "kullanici.id")
     YazilimDeneyimleriDto yazilimDeneyimleriToYazilimDeneyimleriDto(YazilimDeneyimleri yazilimDeneyimleri);
 
     YazilimDeneyimleri yazilimDeneyimleriCreateDtoToYazilimDeneyimleri(YazilimDeneyimleriCreateDto yazilimDeneyimleriCreateDto);

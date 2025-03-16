@@ -5,11 +5,13 @@ import dto.KisiBilgileriDto;
 import dto.KisiBilgileriUpdateDto;
 import entity.KisiBilgileri;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface KisiBilgileriMapper {
 
+    @Mapping(target = "kullaniciId", source = "kullanici.id")
     KisiBilgileriDto kisiBilgileriToKisiBilgileriDto(KisiBilgileri kisiBilgileri);
 
     KisiBilgileri kisiBilgileriCreateDtoToKisiBilgileri(KisiBilgileriCreateDto kisiBilgileriCreateDto);

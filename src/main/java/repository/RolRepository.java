@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface RolRepository extends JpaRepository<Rol, Long> {
     // Özel sorgu metotları (gerekirse buraya eklenebilir)
     Optional<Rol> findByRolAdi(String rolAdi); // Rol adına göre rol bulma
+
 }

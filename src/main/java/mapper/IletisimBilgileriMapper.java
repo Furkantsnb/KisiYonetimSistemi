@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface IletisimBilgileriMapper {
 
+    @Mapping(target = "kullaniciId", source = "kullanici.id")
     IletisimBilgileriDto iletisimBilgileriToIletisimBilgileriDto(IletisimBilgileri iletisimBilgileri);
 
     IletisimBilgileri iletisimBilgileriCreateDtoToIletisimBilgileri(IletisimBilgileriCreateDto iletisimBilgileriCreateDto);

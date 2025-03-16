@@ -11,4 +11,8 @@ import java.util.Optional;
 public interface KullaniciRepository extends JpaRepository<Kullanici, Long> {
     // Özel sorgu metotları (gerekirse buraya eklenebilir)
     Optional<Kullanici> findByKullaniciAdi(String kullaniciAdi); // Kullanıcı adına göre kullanıcı bulma
+
+    boolean existsByKullaniciAdi(String kullaniciAdi);
+
+    boolean existsByEposta(String eposta);
 }
