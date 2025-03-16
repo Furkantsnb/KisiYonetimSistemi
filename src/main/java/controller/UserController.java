@@ -1,16 +1,15 @@
 package controller;
 
-
-
-import entity.Kullanici;
-import service.UserService;
+import dto.KullaniciCreateDto;
+import dto.KullaniciDto;
+import dto.KullaniciUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import service.UserService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/kullanici")
@@ -20,27 +19,30 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<Kullanici>> getAllKullanicilar() {
-        return ResponseEntity.ok(userService.getAllKullanicilar());
+    public ResponseEntity<List<KullaniciDto>> getAllKullanicilar() {
+        return ResponseEntity.ok(userService.getAllKullaniciDtos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Kullanici> getKullaniciById(@PathVariable Long id) {
-        Optional<Kullanici> kullanici = userService.getKullaniciById(id);
-        return kullanici.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<KullaniciDto> getKullaniciById(@PathVariable Long id) {
+        KullaniciDto kullaniciDto = userService.getKullaniciDtoById(id);
+        if (kullaniciDto != null) {
+            return ResponseEntity.ok(kullaniciDto);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public ResponseEntity<Kullanici> createKullanici(@RequestBody Kullanici kullanici) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createKullanici(kullanici));
+    public ResponseEntity<KullaniciDto> createKullanici(@RequestBody KullaniciCreateDto kullaniciCreateDto) {
+        KullaniciDto createdKullaniciDto = userService.createKullanici(kullaniciCreateDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdKullaniciDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Kullanici> updateKullanici(@PathVariable Long id, @RequestBody Kullanici kullanici) {
-        Kullanici updatedKullanici = userService.updateKullanici(id, kullanici);
-        if (updatedKullanici != null) {
-            return ResponseEntity.ok(updatedKullanici);
+    public ResponseEntity<KullaniciDto> updateKullanici(@PathVariable Long id, @RequestBody KullaniciUpdateDto kullaniciUpdateDto) {
+        KullaniciDto updatedKullaniciDto = userService.updateKullanici(id, kullaniciUpdateDto);
+        if (updatedKullaniciDto != null) {
+            return ResponseEntity.ok(updatedKullaniciDto);
         }
         return ResponseEntity.notFound().build();
     }

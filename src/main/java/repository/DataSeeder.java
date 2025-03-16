@@ -1,8 +1,10 @@
 package repository;
 import entity.*;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,14 +18,16 @@ public class DataSeeder implements CommandLineRunner {
     private final KullaniciRepository kullaniciRepository;
     private final RolRepository rolRepository;
     private final YazilimDeneyimleriRepository yazilimDeneyimleriRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataSeeder(AdresBilgileriRepository adresBilgileriRepository, IletisimBilgileriRepository iletisimBilgileriRepository, KisiBilgileriRepository kisiBilgileriRepository, KullaniciRepository kullaniciRepository, RolRepository rolRepository, YazilimDeneyimleriRepository yazilimDeneyimleriRepository) {
+    public DataSeeder(AdresBilgileriRepository adresBilgileriRepository, IletisimBilgileriRepository iletisimBilgileriRepository, KisiBilgileriRepository kisiBilgileriRepository, KullaniciRepository kullaniciRepository, RolRepository rolRepository, YazilimDeneyimleriRepository yazilimDeneyimleriRepository, PasswordEncoder passwordEncoder) {
         this.adresBilgileriRepository = adresBilgileriRepository;
         this.iletisimBilgileriRepository = iletisimBilgileriRepository;
         this.kisiBilgileriRepository = kisiBilgileriRepository;
         this.kullaniciRepository = kullaniciRepository;
         this.rolRepository = rolRepository;
         this.yazilimDeneyimleriRepository = yazilimDeneyimleriRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -99,7 +103,7 @@ public class DataSeeder implements CommandLineRunner {
 
                 Kullanici admin = new Kullanici();
                 admin.setKullaniciAdi("admin");
-                admin.setSifre("admin123");
+                admin.setSifre(passwordEncoder.encode("admin123")); // Şifre hash'leniyor
                 admin.setEposta("admin@example.com");
                 List<Rol> adminRoles = new ArrayList<>();
                 adminRoles.add(adminRol);
@@ -108,7 +112,7 @@ public class DataSeeder implements CommandLineRunner {
 
                 Kullanici user1 = new Kullanici();
                 user1.setKullaniciAdi("user1");
-                user1.setSifre("user123");
+                user1.setSifre(passwordEncoder.encode("user123")); // Şifre hash'leniyor
                 user1.setEposta("user1@example.com");
                 List<Rol> user1Roles = new ArrayList<>();
                 user1Roles.add(userRol);
@@ -117,7 +121,7 @@ public class DataSeeder implements CommandLineRunner {
 
                 Kullanici user2 = new Kullanici();
                 user2.setKullaniciAdi("user2");
-                user2.setSifre("user123");
+                user2.setSifre(passwordEncoder.encode("user123")); // Şifre hash'leniyor
                 user2.setEposta("user2@example.com");
                 List<Rol> user2Roles = new ArrayList<>();
                 user2Roles.add(userRol);
@@ -139,6 +143,12 @@ public class DataSeeder implements CommandLineRunner {
                 adminKisi.setSoyad("User");
                 adminKisi.setTcKimlikNo("11111111111");
                 adminKisi.setKullanici(admin);
+                adminKisi.setDogumTarihi(LocalDate.of(1990, 1, 1));
+                adminKisi.setDogumYeri("Istanbul");
+                adminKisi.setAnneAdi("Admin Anne");
+                adminKisi.setBabaAdi("Admin Baba");
+                adminKisi.setCinsiyet("Erkek");
+                adminKisi.setUyruk("TC");
                 kisiBilgileriRepository.save(adminKisi);
 
                 Kullanici user1 = user1Optional.get();
@@ -147,6 +157,12 @@ public class DataSeeder implements CommandLineRunner {
                 user1Kisi.setSoyad("One");
                 user1Kisi.setTcKimlikNo("22222222222");
                 user1Kisi.setKullanici(user1);
+                user1Kisi.setDogumTarihi(LocalDate.of(1995, 2, 2));
+                user1Kisi.setDogumYeri("Ankara");
+                user1Kisi.setAnneAdi("User1 Anne");
+                user1Kisi.setBabaAdi("User1 Baba");
+                user1Kisi.setCinsiyet("Kadın");
+                user1Kisi.setUyruk("TC");
                 kisiBilgileriRepository.save(user1Kisi);
 
                 Kullanici user2 = user2Optional.get();
@@ -155,6 +171,12 @@ public class DataSeeder implements CommandLineRunner {
                 user2Kisi.setSoyad("Two");
                 user2Kisi.setTcKimlikNo("33333333333");
                 user2Kisi.setKullanici(user2);
+                user2Kisi.setDogumTarihi(LocalDate.of(2000, 3, 3));
+                user2Kisi.setDogumYeri("Izmir");
+                user2Kisi.setAnneAdi("User2 Anne");
+                user2Kisi.setBabaAdi("User2 Baba");
+                user2Kisi.setCinsiyet("Erkek");
+                user2Kisi.setUyruk("TC");
                 kisiBilgileriRepository.save(user2Kisi);
             }
         }

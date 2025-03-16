@@ -1,14 +1,16 @@
 package service;
 
-
-
+import dto.KullaniciCreateDto;
+import dto.KullaniciDto;
+import dto.KullaniciUpdateDto;
 import entity.Kullanici;
-import repository.KullaniciRepository;
+import mapper.KullaniciMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import repository.KullaniciRepository;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -16,25 +18,36 @@ public class UserService {
     @Autowired
     private KullaniciRepository kullaniciRepository;
 
-    public List<Kullanici> getAllKullanicilar() {
-        return kullaniciRepository.findAll();
+    @Autowired
+    private KullaniciMapper kullaniciMapper;
+
+    public List<KullaniciDto> getAllKullaniciDtos() {
+        List<Kullanici> kullanicilar = kullaniciRepository.findAll();
+        return kullanicilar.stream()
+                .map(kullaniciMapper::kullaniciToKullaniciDto)
+                .collect(Collectors.toList());
     }
 
-    public Optional<Kullanici> getKullaniciById(Long id) {
-        return kullaniciRepository.findById(id);
+    public KullaniciDto getKullaniciDtoById(Long id) {
+        return kullaniciRepository.findById(id)
+                .map(kullaniciMapper::kullaniciToKullaniciDto)
+                .orElse(null);
     }
 
-    public Kullanici createKullanici(Kullanici kullanici) {
-        return kullaniciRepository.save(kullanici);
+    public KullaniciDto createKullanici(KullaniciCreateDto kullaniciCreateDto) {
+        Kullanici kullanici = kullaniciMapper.kullaniciCreateDtoToKullanici(kullaniciCreateDto);
+        Kullanici savedKullanici = kullaniciRepository.save(kullanici);
+        return kullaniciMapper.kullaniciToKullaniciDto(savedKullanici);
     }
 
-    public Kullanici updateKullanici(Long id, Kullanici kullanici) {
-        Optional<Kullanici> existingKullanici = kullaniciRepository.findById(id);
-        if (existingKullanici.isPresent()) {
-            kullanici.setId(id); // ID'yi ayarlıyoruz ki güncelleme yapılabilsin
-            return kullaniciRepository.save(kullanici);
+    public KullaniciDto updateKullanici(Long id, KullaniciUpdateDto kullaniciUpdateDto) {
+        if (kullaniciRepository.existsById(id)) {
+            Kullanici kullanici = kullaniciMapper.kullaniciUpdateDtoToKullanici(kullaniciUpdateDto);
+            kullanici.setId(id);
+            Kullanici updatedKullanici = kullaniciRepository.save(kullanici);
+            return kullaniciMapper.kullaniciToKullaniciDto(updatedKullanici);
         }
-        return null; // Kullanıcı bulunamadı
+        return null;
     }
 
     public void deleteKullanici(Long id) {

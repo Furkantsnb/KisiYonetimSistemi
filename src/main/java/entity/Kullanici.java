@@ -2,8 +2,11 @@ package entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "kullanici")
 @Data
@@ -38,4 +41,9 @@ public class Kullanici extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
     private List<Rol> roller;
+
+
+
+
 }
+
