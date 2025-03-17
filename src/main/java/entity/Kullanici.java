@@ -1,17 +1,21 @@
 package entity;
 
+
+
+import entity.*;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "kullanici")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Kullanici extends BaseEntity {
-
 
     @Column(name = "kullanici_adi", unique = true, nullable = false)
     private String kullaniciAdi;
@@ -41,9 +45,5 @@ public class Kullanici extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
     private List<Rol> roller;
-
-
-
-
 }
 

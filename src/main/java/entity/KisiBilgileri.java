@@ -1,13 +1,18 @@
+// KisiBilgileri.java
 package entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "kisi_bilgileri")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class KisiBilgileri extends BaseEntity {
 
     @Column(name = "tc_kimlik_no", unique = true)
