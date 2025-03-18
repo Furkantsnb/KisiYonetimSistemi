@@ -14,8 +14,10 @@ public interface IletisimBilgileriMapper {
     @Mapping(target = "kullaniciId", source = "kullanici.id")
     IletisimBilgileriDto iletisimBilgileriToIletisimBilgileriDto(IletisimBilgileri iletisimBilgileri);
 
+    @Mapping(target = "kullanici.id", source = "kullaniciId")
     IletisimBilgileri iletisimBilgileriCreateDtoToIletisimBilgileri(IletisimBilgileriCreateDto iletisimBilgileriCreateDto);
 
+    @Mapping(target = "kullanici.id", source = "kullaniciId")
     IletisimBilgileri iletisimBilgileriUpdateDtoToIletisimBilgileri(IletisimBilgileriUpdateDto iletisimBilgileriUpdateDto);
 
     void updateIletisimBilgileriFromDto(IletisimBilgileriUpdateDto iletisimBilgileriUpdateDto, @MappingTarget IletisimBilgileri iletisimBilgileri);

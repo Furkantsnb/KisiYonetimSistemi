@@ -14,8 +14,10 @@ public interface AdresBilgileriMapper {
     @Mapping(target = "kullaniciId", source = "kullanici.id")
     AdresBilgileriDto adresBilgileriToAdresBilgileriDto(AdresBilgileri adresBilgileri);
 
+    @Mapping(target = "kullanici.id", source = "kullaniciId")
     AdresBilgileri adresBilgileriCreateDtoToAdresBilgileri(AdresBilgileriCreateDto adresBilgileriCreateDto);
 
+    @Mapping(target = "kullanici.id", source = "kullaniciId")
     AdresBilgileri adresBilgileriUpdateDtoToAdresBilgileri(AdresBilgileriUpdateDto adresBilgileriUpdateDto);
 
     void updateAdresBilgileriFromDto(AdresBilgileriUpdateDto adresBilgileriUpdateDto, @MappingTarget AdresBilgileri adresBilgileri);

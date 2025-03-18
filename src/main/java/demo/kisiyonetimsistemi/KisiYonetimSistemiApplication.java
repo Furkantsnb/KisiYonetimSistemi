@@ -7,6 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.security.SecureRandom;
+import java.util.Base64;
+
 @SpringBootApplication
 @EnableJpaAuditing // Auditing'i etkinleştir
 @ComponentScan(basePackages = {"demo.kisiyonetimsistemi",
@@ -20,5 +23,7 @@ public class KisiYonetimSistemiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(KisiYonetimSistemiApplication.class, args);
+
+
     }
 }

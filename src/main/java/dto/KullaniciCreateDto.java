@@ -9,4 +9,5 @@ public class KullaniciCreateDto {
     private String sifre;
     private String eposta;
     private List<Long> rolIds;
+
 }

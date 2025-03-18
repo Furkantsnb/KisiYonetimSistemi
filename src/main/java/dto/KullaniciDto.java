@@ -9,6 +9,7 @@ public class KullaniciDto {
     private Long id;
     private String kullaniciAdi;
     private String eposta;
+    private String sifre;
     private List<Long> rolIds;
     private Long kisiBilgileriId;
     private List<Long> iletisimBilgileriIds;

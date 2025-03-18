@@ -24,28 +24,28 @@ public class UserService {
     public List<KullaniciDto> getAllKullaniciDtos() {
         List<Kullanici> kullanicilar = kullaniciRepository.findAll();
         return kullanicilar.stream()
-                .map(kullaniciMapper::kullaniciToKullaniciDto)
+                .map(kullaniciMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     public KullaniciDto getKullaniciDtoById(Long id) {
         return kullaniciRepository.findById(id)
-                .map(kullaniciMapper::kullaniciToKullaniciDto)
+                .map(kullaniciMapper::toDto)
                 .orElse(null);
     }
 
     public KullaniciDto createKullanici(KullaniciCreateDto kullaniciCreateDto) {
-        Kullanici kullanici = kullaniciMapper.kullaniciCreateDtoToKullanici(kullaniciCreateDto);
+        Kullanici kullanici = kullaniciMapper.toEntity(kullaniciCreateDto);
         Kullanici savedKullanici = kullaniciRepository.save(kullanici);
-        return kullaniciMapper.kullaniciToKullaniciDto(savedKullanici);
+        return kullaniciMapper.toDto(savedKullanici);
     }
 
     public KullaniciDto updateKullanici(Long id, KullaniciUpdateDto kullaniciUpdateDto) {
         if (kullaniciRepository.existsById(id)) {
-            Kullanici kullanici = kullaniciMapper.kullaniciUpdateDtoToKullanici(kullaniciUpdateDto);
+            Kullanici kullanici = kullaniciMapper.toEntity(kullaniciUpdateDto);
             kullanici.setId(id);
             Kullanici updatedKullanici = kullaniciRepository.save(kullanici);
-            return kullaniciMapper.kullaniciToKullaniciDto(updatedKullanici);
+            return kullaniciMapper.toDto(updatedKullanici);
         }
         return null;
     }

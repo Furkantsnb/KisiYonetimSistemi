@@ -7,6 +7,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.stream.Collectors;
+import jakarta.annotation.PostConstruct;
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -38,12 +41,24 @@ public class Kullanici extends BaseEntity {
     @OneToMany(mappedBy = "kullanici", cascade = CascadeType.ALL)
     private List<YazilimDeneyimleri> yazilimDeneyimleri;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "kullanici_rol",
             joinColumns = @JoinColumn(name = "kullanici_id"),
             inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
     private List<Rol> roller;
+
+    @PostConstruct // @PostConstruct anotasyonunu ekleyin
+    public void init() {
+        this.roller = new ArrayList<>(); // roller listesini başlatın
+    }
+
+    public List<Long> getRolIds() {
+        if(roller == null) return new ArrayList<>();
+        return roller.stream()
+                .map(Rol::getId)
+                .collect(Collectors.toList());
+    }
 }
 

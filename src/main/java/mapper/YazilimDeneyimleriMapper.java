@@ -14,8 +14,10 @@ public interface YazilimDeneyimleriMapper {
     @Mapping(target = "kullaniciId", source = "kullanici.id")
     YazilimDeneyimleriDto yazilimDeneyimleriToYazilimDeneyimleriDto(YazilimDeneyimleri yazilimDeneyimleri);
 
+    @Mapping(target = "kullanici.id", source = "kullaniciId")
     YazilimDeneyimleri yazilimDeneyimleriCreateDtoToYazilimDeneyimleri(YazilimDeneyimleriCreateDto yazilimDeneyimleriCreateDto);
 
+    @Mapping(target = "kullanici.id", source = "kullaniciId")
     YazilimDeneyimleri yazilimDeneyimleriUpdateDtoToYazilimDeneyimleri(YazilimDeneyimleriUpdateDto yazilimDeneyimleriUpdateDto);
 
     void updateYazilimDeneyimleriFromDto(YazilimDeneyimleriUpdateDto yazilimDeneyimleriUpdateDto, @MappingTarget YazilimDeneyimleri yazilimDeneyimleri);
